@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncAddTodo, addTodoActionCreator } from "../states/todos/action";
 import TodoInput from "../components/TodoInput";
 import { useNavigate } from "react-router-dom";
+
 function TodoAddPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function TodoAddPage() {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "Todo berhasil ditambahkan!",
+        title: "Post berhasil ditambahkan!",
         showConfirmButton: false,
         timer: 700,
       });
@@ -21,9 +22,11 @@ function TodoAddPage() {
       dispatch(addTodoActionCreator(false));
     }
   }, [isAddTodo, navigate, dispatch]);
-  const onAddTodo = ({ title, description }) => {
-    dispatch(asyncAddTodo({ title, description }));
+
+  const onAddTodo = (formData) => {
+    dispatch(asyncAddTodo(formData));
   };
+
   return (
     <section>
       <div className="container pt-1">
@@ -32,4 +35,5 @@ function TodoAddPage() {
     </section>
   );
 }
+
 export default TodoAddPage;
