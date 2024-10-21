@@ -1,47 +1,79 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useDropzone } from "react-dropzone";
+
 function TodoInput({ onAddTodo }) {
-  const [title, setTitle] = useState("");
+  const [cover, setCover] = useState(null);
   const [description, setDescription] = useState("");
+
+  const onDrop = (acceptedFiles) => {
+    if (acceptedFiles[0]) {
+      setCover(acceptedFiles[0]);
+    }
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/*': ['.jpeg', '.png', '.jpg', '.gif']
+    },
+    maxFiles: 1
+  });
+
   function handleOnAddTodo(e) {
-    e.preventDefault(); // Mencegah refresh halaman
-    if (title.trim() && description.trim()) {
-      onAddTodo({ title, description });
+    e.preventDefault();
+    
+    if (cover && description.trim()) {
+      const formData = new FormData();
+      formData.append('cover', cover);
+      formData.append('description', description);
+      
+      onAddTodo(formData);
+      setCover(null);
+      setDescription("");
+    } else {
+      console.error("Cover or description is missing!");
     }
   }
-  function handleTitle({ target }) {
-    if (target.value.length <= 50) {
-      setTitle(target.value);
-    }
-  }
+
   function handleDescription({ target }) {
     if (target.value.length <= 1000) {
       setDescription(target.value);
     }
   }
+
   return (
     <div className="card">
       <div className="card-body">
-        <h3 className="ps-2">Buat Todo</h3>
+        <h3 className="ps-2">Buat Post</h3>
         <hr />
         <form onSubmit={handleOnAddTodo}>
           <div className="mb-3">
-            <label htmlFor="inputTitle" className="form-label">
-              Judul
-            </label>
-            <div className="input-group">
-              <input
-                type="text"
-                id="inputTitle"
-                onChange={handleTitle}
-                value={title}
-                className="form-control"
-                required
-              />
-              <span className="input-group-text">{title.length}/50</span>
+            <div
+              {...getRootProps()}
+              className={`border border-dashed rounded p-4 text-center cursor-pointer ${
+                isDragActive ? "border-primary" : "border-secondary"
+              }`}
+            >
+              <input {...getInputProps()} id="cover" />
+              {cover ? (
+                <div className="relative h-40 w-full mb-2">
+                  <img
+                    src={URL.createObjectURL(cover)}
+                    alt="Cover preview"
+                    className="img-fluid rounded"
+                  />
+                </div>
+              ) : (
+                <p className="text-muted">
+                  {isDragActive
+                    ? "Drop the image here"
+                    : "Drag 'n' drop a cover image here, or click to select one"}
+                </p>
+              )}
             </div>
           </div>
-          <div>
+          <div className="mb-3">
             <label htmlFor="inputBody" className="form-label">
               Deskripsi
             </label>
@@ -66,7 +98,9 @@ function TodoInput({ onAddTodo }) {
     </div>
   );
 }
+
 TodoInput.propTypes = {
   onAddTodo: PropTypes.func.isRequired,
 };
+
 export default TodoInput;
