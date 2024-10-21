@@ -1,39 +1,159 @@
-import PropTypes from "prop-types"; // Mengimpor PropTypes untuk validasi tipe data props
-import { todoItemShape } from "./TodoItem"; // Mengimpor bentuk (shape) dari todo item yang telah didefinisikan di TodoItem
-import { postedAt } from "../utils/tools"; // Mengimpor fungsi postedAt untuk memformat waktu posting todo
-import { FaClock } from "react-icons/fa6"; // Mengimpor ikon jam dari react-icons (ikon FaClock)
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function TodoDetail({ todo }) {
-  let badgeStatus, badgeLabel; // Deklarasi variabel untuk status dan label badge
-  
-  // Menentukan status todo, apakah selesai atau belum selesai
-  if (todo.is_finished) {
-    badgeStatus = "badge bg-success text-white ms-3"; // Jika selesai, badge berwarna hijau
-    badgeLabel = "Selesai"; // Label badge menunjukkan 'Selesai'
-  } else {
-    badgeStatus = "badge bg-warning text-dark ms-3"; // Jika belum selesai, badge berwarna kuning
-    badgeLabel = "Belum Selesai"; // Label badge menunjukkan 'Belum Selesai'
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { todoItemShape } from "./TodoItem";
+import { postedAt } from "../utils/tools";
+import { FaClock, FaRegThumbsUp, FaRegComment } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa";
+import {
+  asyncAddComment,
+  asyncDeleteComment,
+  asyncDetailTodo,
+  asyncDeletePost,
+} from "../states/todos/action";
+
+function TodoDetail({ todo, like, authLogin }) {
+  const navigate = useNavigate();
+
+  const [comment, setComment] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleDeleteComment = async (id) => {
+    await dispatch(asyncDeleteComment(id));
+    await dispatch(asyncDetailTodo(id));
+
+    // eslint-disable-next-line no-undef
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Komentar berhasil dihapus!",
+      showConfirmButton: false,
+      timer: 700,
+    });
+  };
+
+  const handleDeletePost = async (id) => {
+    await dispatch(asyncDeletePost(id));
+
+    // eslint-disable-next-line no-undef
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Post berhasil dihapus!",
+      showConfirmButton: false,
+      timer: 700,
+    });
+
+    navigate("/");
+  };
+
+  const handleOnAddComment = async (e) => {
+    e.preventDefault();
+
+    if (comment.trim()) {
+      const formData = new FormData();
+      formData.append("comment", comment);
+
+      await dispatch(asyncAddComment(todo.id, formData));
+      await dispatch(asyncDetailTodo(todo.id));
+
+      // eslint-disable-next-line no-undef
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Comment berhasil ditambahkan!",
+        showConfirmButton: false,
+        timer: 700,
+      });
+
+      setComment("");
+    } else {
+      console.error("Comment is missing!");
+    }
+  };
+
+  function handleComment({ target }) {
+    setComment(target.value);
   }
 
   return (
-    <div className="card mt-3"> {/* Membungkus konten dalam card Bootstrap */}
-      <div className="card-body"> {/* Isi card */}
-        <div className="row align-items-center"> {/* Membuat layout berbasis grid */}
-          <div className="col-12 d-flex"> {/* Kolom pertama: Judul dan status badge */}
-            <h5>{todo.title}</h5> {/* Menampilkan judul todo */}
+    <div className="card mt-3">
+      <div className="card-body">
+        <div className="row align-items-center">
+          <div className="col-12 d-flex justify-content-between align-items-center">
+            <div className="text-sm op-5">
+              <FaClock />
+              <span className="ps-2">{postedAt(todo.created_at)}</span>
+            </div>
+            {authLogin.id === todo.user_id && (
+              <button
+                className="btn btn-link text-danger"
+                onClick={() => handleDeletePost(todo.id)}
+              >
+                <FaTrash />
+              </button>
+            )}
+          </div>
+          <div className="col-12">
+            <hr />
+            <img src={todo.cover} alt="Cover" className="img-fluid mb-3" />
+            <p>{todo.description}</p>
+          </div>
+          <div className="col-12 d-flex justify-content-between mt-2">
             <div>
-              <span className={badgeStatus}>{badgeLabel}</span> {/* Menampilkan status todo */}
+              <FaRegThumbsUp
+                onClick={like}
+                className={
+                  todo.likes.includes(authLogin.id) ? "text-primary" : ""
+                }
+                style={{ cursor: "pointer" }}
+              />{" "}
+              {todo.likes.length}
+            </div>
+            <div>
+              <FaRegComment /> {todo.comments.length}
             </div>
           </div>
-          <div className="col-12"> {/* Kolom kedua: Waktu todo dibuat */}
-            <div className="text-sm op-5"> {/* Gaya teks lebih kecil dan opasitas */}
-              <FaClock /> {/* Ikon jam */}
-              <span className="ps-2">{postedAt(todo.created_at)}</span> {/* Menampilkan waktu posting */}
+          <div className="col-12 mt-3">
+            <form className="input-group mb-3" onSubmit={handleOnAddComment}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder={
+                  todo.my_comment?.id
+                    ? "Update your comment"
+                    : "Add a comment..."
+                }
+                value={comment}
+                onChange={handleComment}
+              />
+              <button type="submit" className="btn btn-primary">
+                {todo.my_comment?.id ? "Update" : "Submit"}
+              </button>
+            </form>
+            <div>
+              <div className="mb-2">Comments</div>
+
+              {todo.comments.map((comment) => (
+                <div
+                  key={comment.id}
+                  className="border-bottom py-2 d-flex justify-content-between align-items-center"
+                >
+                  <p className="mb-0">{comment.comment}</p>
+                  {todo.my_comment?.id === comment.id && (
+                    <button
+                      className="btn btn-link text-danger"
+                      onClick={() => handleDeleteComment(todo.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
-          </div>
-          <div className="col-12"> {/* Kolom ketiga: Deskripsi todo */}
-            <hr /> {/* Garis horizontal */}
-            {todo.description} {/* Menampilkan deskripsi todo */}
           </div>
         </div>
       </div>
@@ -42,7 +162,9 @@ function TodoDetail({ todo }) {
 }
 
 TodoDetail.propTypes = {
-  todo: PropTypes.shape(todoItemShape).isRequired, // Memastikan prop todo berbentuk seperti todoItemShape dan wajib diisi
+  todo: PropTypes.shape(todoItemShape).isRequired,
+  like: PropTypes.func.isRequired,
+  authLogin: PropTypes.any,
 };
 
-export default TodoDetail; // Mengekspor komponen TodoDetail sebagai default
+export default TodoDetail;
