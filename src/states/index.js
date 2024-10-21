@@ -10,6 +10,7 @@ import {
   isDeleteTodoReducer,
   detailTodoReducer,
 } from "./todos/reducer";
+
 const store = configureStore({
   reducer: {
     // Auth
@@ -26,4 +27,5 @@ const store = configureStore({
     detailTodo: detailTodoReducer,
   },
 });
+
 export default store;

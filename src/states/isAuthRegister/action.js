@@ -1,9 +1,11 @@
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import api from "../../utils/api";
 import { showErrorDialog } from "../../utils/tools";
+
 const ActionType = {
   SET_IS_AUTH_REGISTER: "SET_IS_AUTH_REGISTER",
 };
+
 function setIsAuthRegisterActionCreator(isAuthRegister) {
   return {
     type: ActionType.SET_IS_AUTH_REGISTER,
@@ -25,4 +27,5 @@ function asyncSetIsAuthRegister({ name, email, password }) {
     dispatch(hideLoading());
   };
 }
+
 export { ActionType, setIsAuthRegisterActionCreator, asyncSetIsAuthRegister };

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { postedAt } from "../utils/tools";
 import { FaClock, FaTrash } from "react-icons/fa6";
+
 function TodoItem({ todo, onDeleteTodo }) {
   let badgeStatus, badgeLabel;
   if (todo.is_finished) {
@@ -11,6 +12,7 @@ function TodoItem({ todo, onDeleteTodo }) {
     badgeStatus = "badge bg-warning text-dark ms-3";
     badgeLabel = "Belum Selesai";
   }
+
   return (
     <div className="card mt-3">
       <div className="card-body">
@@ -32,8 +34,7 @@ function TodoItem({ todo, onDeleteTodo }) {
                 // eslint-disable-next-line no-undef
                 Swal.fire({
                   title: "Hapus Todo",
-                  text: `Apakah kamu yakin ingin mehapus todo: 
-${todo.title}?`,
+                  text: `Apakah kamu yakin ingin mehapus todo: ${todo.title}?`,
                   icon: "warning",
                   showCancelButton: true,
                   confirmButtonText: "Ya, Tetap Hapus",
@@ -76,6 +77,8 @@ TodoItem.propTypes = {
   todo: PropTypes.shape(todoItemShape).isRequired,
   onDeleteTodo: PropTypes.func.isRequired,
 };
+
 // eslint-disable-next-line react-refresh/only-export-components
 export { todoItemShape };
+
 export default TodoItem;

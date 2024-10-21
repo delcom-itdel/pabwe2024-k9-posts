@@ -1,4 +1,5 @@
 import { ActionType } from "./action";
+
 function authLoginReducer(authLogin = null, action = {}) {
   switch (action.type) {
     case ActionType.SET_AUTH_LOGIN:
@@ -9,4 +10,5 @@ function authLoginReducer(authLogin = null, action = {}) {
       return authLogin;
   }
 }
+
 export default authLoginReducer;

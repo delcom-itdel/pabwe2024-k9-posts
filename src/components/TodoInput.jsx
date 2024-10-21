@@ -15,19 +15,19 @@ function TodoInput({ onAddTodo }) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.jpeg', '.png', '.jpg', '.gif']
+      "image/*": [".jpeg", ".png", ".jpg", ".gif"],
     },
-    maxFiles: 1
+    maxFiles: 1,
   });
 
   function handleOnAddTodo(e) {
     e.preventDefault();
-    
+
     if (cover && description.trim()) {
       const formData = new FormData();
-      formData.append('cover', cover);
-      formData.append('description', description);
-      
+      formData.append("cover", cover);
+      formData.append("description", description);
+
       onAddTodo(formData);
       setCover(null);
       setDescription("");

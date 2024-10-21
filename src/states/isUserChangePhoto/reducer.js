@@ -1,4 +1,5 @@
 import { ActionType } from "./action";
+
 function isUserChangePhotoReducer(isUserChangePhoto = false, action = {}) {
   switch (action.type) {
     case ActionType.SET_IS_USER_CHANGE_PHOTO:
@@ -7,4 +8,5 @@ function isUserChangePhotoReducer(isUserChangePhoto = false, action = {}) {
       return isUserChangePhoto;
   }
 }
+
 export default isUserChangePhotoReducer;

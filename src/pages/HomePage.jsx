@@ -41,11 +41,13 @@ function HomePage() {
                   }}
                   onClick={() => handleTodoClick(todo.id)}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 16px rgba(0, 0, 0, 0.2)";
                     e.currentTarget.style.backgroundColor = "#f7f7f7";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 8px rgba(0, 0, 0, 0.1)";
                     e.currentTarget.style.backgroundColor = "white";
                   }}
                 >
@@ -63,7 +65,11 @@ function HomePage() {
                     <div className="mt-auto d-flex justify-content-between align-items-center">
                       <div className="d-flex align-items-center">
                         <FaRegThumbsUp
-                          className={`me-2 ${todo.likes.includes(authLogin.id) ? 'text-primary' : ''}`}
+                          className={`me-2 ${
+                            todo.likes.includes(authLogin.id)
+                              ? "text-primary"
+                              : ""
+                          }`}
                           onClick={(e) => {
                             e.stopPropagation();
                             handleLikeClick(todo.id, todo.likes);

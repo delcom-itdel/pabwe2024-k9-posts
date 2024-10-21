@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import TodoItem, { todoItemShape } from "./TodoItem";
+
 function TodoList({ todos, onDeleteTodo }) {
   return (
     <div>
@@ -9,8 +10,10 @@ function TodoList({ todos, onDeleteTodo }) {
     </div>
   );
 }
+
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape(todoItemShape)).isRequired,
   onDeleteTodo: PropTypes.func.isRequired,
 };
+
 export default TodoList;

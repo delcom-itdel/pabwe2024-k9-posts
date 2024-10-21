@@ -6,6 +6,7 @@ function postedAt(date) {
   const diffHours = Math.floor(diff / (1000 * 60 * 60));
   const diffMinutes = Math.floor(diff / (1000 * 60));
   const diffSeconds = Math.floor(diff / 1000);
+
   if (diffDays > 0) {
     return `${diffDays} hari lalu`;
   }
@@ -20,9 +21,11 @@ function postedAt(date) {
   }
   return "baru saja";
 }
+
 function formatDate(date) {
   return new Date(date).toLocaleString("id-ID");
 }
+
 function showErrorDialog(message) {
   // eslint-disable-next-line no-undef
   Swal.fire({

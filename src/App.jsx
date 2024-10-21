@@ -10,26 +10,32 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
-import PostAddPage from "./pages/PostAddPage";
-import PostDetailPage from "./pages/PostDetailPage";
+import TodoAddPage from "./pages/TodoAddPage";
+import TodoDetailPage from "./pages/TodoDetailPage";
+
 function App() {
   const { authLogin = null, isPreload = false } = useSelector(
     (states) => states
   );
   const location = useLocation();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
+
   const onAuthSignOut = () => {
     dispatch(asyncUnsetAuthLogin());
   };
+
   if (isPreload) {
     return null;
   }
+
   if (authLogin === null) {
     const activeRegister = location.pathname === "/register" ? "active" : "";
     const activeLogin = location.pathname !== "/register" ? "active" : "";
+
     return (
       <div>
         <header className="fixed-top">
@@ -42,24 +48,20 @@ function App() {
             </div>
             <ul className="nav nav-pills mb-3">
               <li className="nav-item w-50 text-center">
-                <Link
-                  className={`nav-link 
-${activeLogin} btl`}
-                  to="/"
-                >
+                <Link className={`nav-link ${activeLogin} btl`} to="/">
                   Login
                 </Link>
               </li>
               <li className="nav-item w-50 text-center">
                 <Link
-                  className={`nav-link 
-${activeRegister} btl`}
+                  className={`nav-link ${activeRegister} btl`}
                   to="/register"
                 >
                   Register
                 </Link>
               </li>
             </ul>
+
             <Routes>
               <Route path="/*" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
@@ -69,6 +71,7 @@ ${activeRegister} btl`}
       </div>
     );
   }
+
   return (
     <>
       <div>
@@ -81,12 +84,13 @@ ${activeRegister} btl`}
             <Route path="/*" element={<NotFoundPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/users/me" element={<ProfilePage />} />
-            <Route path="/Posts/:id" element={<PostDetailPage />} />
-            <Route path="/Posts/add" element={<PostAddPage />} />
+            <Route path="/post/:id" element={<TodoDetailPage />} />
+            <Route path="/post/add" element={<TodoAddPage />} />
           </Routes>
         </main>
       </div>
     </>
   );
 }
+
 export default App;

@@ -1,10 +1,12 @@
 import { hideLoading, showLoading } from "react-redux-loading-bar";
 import api from "../../utils/api";
 import { showErrorDialog } from "../../utils/tools";
+
 const ActionType = {
   SET_AUTH_LOGIN: "SET_AUTH_LOGIN",
   UNSET_AUTH_LOGIN: "UNSET_AUTH_LOGIN",
 };
+
 function setAuthLoginActionCreator(authLogin) {
   return {
     type: ActionType.SET_AUTH_LOGIN,
