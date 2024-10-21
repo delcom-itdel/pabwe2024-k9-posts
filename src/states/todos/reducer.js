@@ -1,4 +1,5 @@
 import { ActionType } from "./action";
+
 function todosReducer(todos = [], action = {}) {
   switch (action.type) {
     case ActionType.GET_TODOS:
