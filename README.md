@@ -1,8 +1,11 @@
-# React + Vite
+| NIM       | Nama                  | username Github    |
+|-----------|-----------------------|--------------------|
+| 11S22031  | Bertrand Sianipar     | RattleSnake4782    |
+| 11S22015  | Gabriela Silitonga    | gabrielaamls       |
+| 11S22053  | Tabita Novi Sinaga    | tabita191103       |
+| 11S22001  | Yan RIkho Siallagan   | Yanriko            |
+| 11S22033  | Chalvin Sihombing     | BoyRush            |
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Delcom App
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Logs
