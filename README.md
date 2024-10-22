@@ -20,7 +20,7 @@
 - pembuatan fitur home page (11S22015 - Gabriela silitonga)
 
 [21-10-2024]
-- penambahan add page (11S22053 - Tabita novita sinaga)
+- penambahan add page (11S22053 - Tabita novi sinaga)
 
 [21-10-2024]
 - penambahan detail page (11S22001 - Yanrikho siallagan)
