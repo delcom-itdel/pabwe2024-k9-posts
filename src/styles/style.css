@@ -176,7 +176,9 @@ a {
     opacity: 1;
   }
 }
-
+.bg-primary {
+  background-color: #020202 !important;
+}
 /* Card styling for posts */
 .card {
   border: none;
