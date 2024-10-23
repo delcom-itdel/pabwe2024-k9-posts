@@ -1,24 +1,44 @@
+/* Background and general body settings */
 body {
-  background-color: #e8e8e8;
+  background-color: #f0f8ff;
   margin-bottom: 50px;
 }
+
+/* Link settings */
 a {
   text-decoration: none;
 }
+
+/* Custom width */
 .w-300px {
   width: 376px;
 }
+
+/* Navbar item settings */
 .nav-item {
   display: table-cell;
-  background: #0d6efd2e;
+  background: #0d25fd2e;
 }
+
+/* Profile picture settings */
 .nav-profile {
   border-radius: 50%;
   width: 36px;
+  border: 2px solid #fff; /* Added border for profile picture */
+  transition: transform 0.3s ease, border-color 0.3s ease; /* Smooth hover effect */
 }
+
+.nav-profile:hover {
+  transform: scale(1.1); /* Zoom-in effect on hover */
+  border-color: #ffc107; /* Change border color on hover */
+}
+
+/* Main content margin */
 .margin-main {
   margin-top: 80px;
 }
+
+/* Loader settings for loading screen */
 .loading {
   position: relative;
   overflow: hidden !important;
@@ -26,6 +46,7 @@ a {
   height: 100vh;
   background-color: #e8e8e8;
 }
+
 .loader {
   position: absolute;
   margin: 0 auto;
@@ -40,17 +61,160 @@ a {
   box-sizing: border-box;
   border-radius: 50%;
   background: radial-gradient(circle 5px, currentColor 95%, #0000),
-    linear-gradient(currentColor 50%, #0000 0) 50%/4px 60% no- repeat;
+    linear-gradient(currentColor 50%, #0000 0) 50%/4px 60% no-repeat;
   animation: l1 2s infinite linear;
 }
+
 .loader:before {
   content: "";
   flex: 1;
   background: linear-gradient(currentColor 50%, #0000 0) 50%/4px 80% no-repeat;
   animation: inherit;
 }
+
 @keyframes l1 {
   100% {
     transform: rotate(1turn);
   }
+}
+
+/* Navbar settings */
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add depth with shadow */
+  transition: background-color 0.3s ease;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #ffc107 !important; /* Change brand color on hover */
+}
+
+.navbar-collapse{
+ color: #3da13d !important;
+}
+/* Create Post Button */
+.btn-light {
+  background-color: #fff;
+  border: none;
+  color: #333;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+  background-color: #ffc107;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4); /* Add shadow on hover */
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add shadow */
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+.dropdown-item {
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+/* Responsive navigation */
+.navbar-toggler {
+  border: none;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.navbar-toggler:hover {
+  color: #ffc107;
+}
+
+@media (max-width: 992px) {
+  .navbar-toggler {
+    color: #fff;
+  }
+
+  .btn-light {
+    margin-bottom: 10px;
+    width: 100%; /* Full width button for mobile */
+  }
+
+  .nav-profile {
+    margin-right: 15px;
+  }
+}
+
+/* Adding smooth transitions to elements */
+.navbar-collapse {
+  transition: max-height 0.3s ease;
+}
+
+/* Add a fade-in effect for the main content */
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Card styling for posts */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Additional styles for buttons */
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.5); /* Add shadow */
+}
+
+/* Footer styling */
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+}
+
+.footer a {
+  color: #ffc107;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #fff; /* Change link color on hover */
 }
